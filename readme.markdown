@@ -4,7 +4,7 @@
 
 
 
-## Prérequis : {#prérequis-}
+## Prérequis : 
 
 • Docker   
 installation de docker :   
@@ -35,22 +35,22 @@ vérifier le statue de minikube :
 ``` console
 minikube status
 ```
-:::
 
-::: {.cell .markdown}
+
+
 ## Objectif
-:::
 
-::: {.cell .markdown}
+
+
 Deploiement d\'une application sur Minikube avec auto-scaling et
 monitoring utilisant Prometheus & Grafana.  
-:::
 
-::: {.cell .markdown}
+
+
 ### Redis
-:::
 
-::: {.cell .markdown}
+
+
 Déployer une base de donnée Redis à partir de l\'image officielle Docker
 (redis)   
  • <https://hub.docker.com/_/redis>   
@@ -72,13 +72,11 @@ ou
 ``` console
  docker pull myaakoub/redis:latest
 ```
-:::
 
-::: {.cell .markdown}
 ### Node-Redis
-:::
 
-::: {.cell .markdown}
+
+
 Déployer le serveur nodejs   
 • <https://hub.docker.com/repository/docker/sofia016/node-js/general>  
 • <https://hub.docker.com/repository/docker/myaakoub/node-server/general>  
@@ -93,14 +91,14 @@ ou
 ``` console
   docker pull sofia016/node-js:latest
 ```
-:::
 
-::: {.cell .markdown}
+
+
 Pour que le serveur fonctionne correctement vous devez ajouter ses
 configurations dans son environment.  
-:::
 
-::: {.cell .raw}
+
+
 ```{=ipynb}
           env:
             - name: PORT
@@ -110,36 +108,36 @@ configurations dans son environment.
             - name: REDIS_REPLICAS_URL
               value: redis://redis.default.svc.cluster.local:6379
 ```
-:::
 
-::: {.cell .markdown}
+
+
 ### Service
-:::
 
-::: {.cell .markdown}
+
+
 Créer un service pour la base de données Redis et le rendre accessible à
 l\'intérieur du cluster.   
 Créer un service pour le serveur  Node-Redis et le rendre accessible de l\'exterieur du cluster.  
-:::
 
-::: {.cell .markdown}
+
+
 ### Pods
 :::
 
-::: {.cell .markdown}
+
 Créer un déploiement pour la base de données Redis et le serveur
 Node-Redis.  
 Une fois qu\'un serveur fonctionne augmentez
 le nombre de pods (Node-Redis à 2, et Redis entre 2 et 3).  
 Et vérifier que cela fonctionne toujours. ceci se fait à l\'aide de l\'augmentation
 de nombres de replicas dans les fichiers \"deployment\"
-:::
 
-::: {.cell .markdown}
+
+
 ### Frontend
-:::
 
-::: {.cell .markdown}
+
+
 Pour tester que le serveur node-redis fonctionne correctement lancer un frontend :  
 • <https://hub.docker.com/repository/docker/myaakoub/redis-react/general>  
 
@@ -154,13 +152,13 @@ docker pull myaakoub/redis-react:latest
 ``` console
  docker pull sofia016/frontend:latest
 ```
-:::
 
-::: {.cell .markdown}
+
+
 ### Mise à l\'échelle
-:::
 
-::: {.cell .markdown}
+
+
 Auto-scaling : Configurer l\'auto-scaling pour les composants de
 l\'application, en particulier pour les déploiements de Redis et du
 serveur Node.js.  
@@ -170,13 +168,13 @@ augmentant ou en diminuant le nombre de pods en fonction des besoins.
 
 Pour augmenter la capacité de la base de donnée redis.  
 configurer le fichier YAML pour la mise à l\'échelle.  
-:::
 
-::: {.cell .markdown}
+
+
 ### Monitoring avec Prometheus/Grafana
-:::
 
-::: {.cell .markdown}
+
+
 Monitoring : Mettre en place un système de surveillance utilisant
 Prometheus et Grafana pour collecter et visualiser les métriques de
 performance de notre application.  
@@ -202,46 +200,44 @@ Déployer Grafana pour le monitoring
 ``` console
  docker pull grafana/grafana
 ```
-:::
 
-::: {.cell .markdown}
 ## Commandes utiles
-:::
 
-::: {.cell .markdown}
+
+
 Visualiser les ressources déployées  
-:::
 
-::: {.cell .raw}
+
+
 ```{=ipynb}
 kubectl get pods
 kubectl get services
 kubectl get deployments
 ```
-:::
 
-::: {.cell .markdown}
+
+
 Récupérer les log d\'un pod  
-:::
 
-::: {.cell .raw}
+
+
 ```{=ipynb}
 kubectl logs <pod-id>
 ```
-:::
 
-::: {.cell .markdown}
+
+
 Utiliser un fichier yaml et l\'appliquer  
-:::
 
-::: {.cell .raw}
+
+ 
 ```{=ipynb}
 kubectl delete -f file.yaml
 kubectl apply -f file.yaml
 ```
-:::
 
-::: {.cell .markdown}
+
+
 Un fichier deploy-infra.sh est mis à disposition, Ce script est une sort
 de makefile, conçu pour automatiser le déploiement d\'un ensemble de
 services sur un cluster Kubernetes Minikube.  
@@ -271,4 +267,4 @@ avec :
 Ce script facilitera le déploiement de votre infrastructure sur
 Minikube, vous permettant ainsi de vous concentrer sur le développement
 de votre application.  
-:::
+
