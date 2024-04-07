@@ -16,7 +16,27 @@ spec:
     spec:
       containers:
       - name: redis
+        imagePullPolicy: Always
         image: redis:7.2
         ports:
         - containerPort: 6379
-
+        resources:
+         requests:
+          memory: "256Mi"
+          cpu: "100m"
+         limits:
+           memory: "512Mi"
+           cpu: "500m"
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: redis-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: redis-deployment
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
